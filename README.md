@@ -1,6 +1,8 @@
 # nixie
+![image](https://user-images.githubusercontent.com/38028595/166111458-cdb046b1-1742-43e4-ba70-ae57c597d19b.png)
+![image](https://user-images.githubusercontent.com/38028595/166111470-92a88164-8f54-4ddc-a3d3-26943aa12e6a.png)
+![image](https://user-images.githubusercontent.com/38028595/166111516-1ad202c0-a61c-46da-b878-3d569f0bfd22.png)
 
-![image](https://user-images.githubusercontent.com/38028595/166099217-2baee893-2fee-4cbb-b281-c7be31b3ba84.png)
 
 ## 硬件结构
 IN-12的管子,串联74HC595驱动
