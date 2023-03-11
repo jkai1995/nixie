@@ -36,13 +36,13 @@ void spiInit(void)          //SPI1配置函数
 
 void SPI_SendByte(u8 data)
 {
-	while(SPI_I2S_GetFlagStatus(SPI1,SPI_I2S_FLAG_TXE) == RESET);
-	SPI_I2S_SendData(SPI1, data);
+    while(SPI_I2S_GetFlagStatus(SPI1,SPI_I2S_FLAG_TXE) == RESET);
+    SPI_I2S_SendData(SPI1, data);
 }
 
 void SPI_WaitForSendComplete()
 {
-	while(SPI_I2S_GetFlagStatus(SPI1,SPI_I2S_FLAG_BSY) == SET);
+    while(SPI_I2S_GetFlagStatus(SPI1,SPI_I2S_FLAG_BSY) == SET);
 }
 
 

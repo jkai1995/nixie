@@ -6,8 +6,8 @@
 
 enum ePowerCtrl
 {
-	V170_SHDN,//PB12
-	PinMax,
+    V170_SHDN,//PB12
+    PinMax,
 };
 
 void powerCtrlInit (void);

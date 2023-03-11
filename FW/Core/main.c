@@ -10,34 +10,34 @@
 void createTasks(void *pvParameters )
 {
 
-	powerCtrlInit();
-	//UserShellInit();
-	JDY08_Init();
-	
-	createShellTask();
-	createRealtimeTask();
-	vTaskSuspend(NULL);
+    powerCtrlInit();
+    //UserShellInit();
+    JDY08_Init();
+    
+    createShellTask();
+    createRealtimeTask();
+    vTaskSuspend(NULL);
 }
 
 
 int main (void)
 {
-	/*设置优先级分组*/
-	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
+    /*设置优先级分组*/
+    NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
 
-	TaskHandle_t xHandle;
+    TaskHandle_t xHandle;
 
-	xTaskCreate(createTasks,
-				"createTasks",
-				64,
-				NULL,
-				1,
-				&xHandle);
+    xTaskCreate(createTasks,
+                "createTasks",
+                64,
+                NULL,
+                1,
+                &xHandle);
     /*启动任务调度器，任务开始执行*/
     vTaskStartScheduler();
 
 
-	for(;;);
+    for(;;);
 }
 
 

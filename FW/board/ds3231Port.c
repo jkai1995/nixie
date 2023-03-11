@@ -4,8 +4,8 @@
 
 void RtcTimeInit(void)
 {
-	I2C1_Init();
-	ds3231Init(IIC_WriteBytes,IIC_ReadBytes);
+    I2C1_Init();
+    ds3231Init(IIC_WriteBytes,IIC_ReadBytes);
 
-	getRtcTime();
+    getRtcTime();
 }

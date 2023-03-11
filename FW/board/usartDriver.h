@@ -9,8 +9,8 @@ typedef void (*pfnOnReceiveData)(u8*,u32,u8);
 
 typedef struct
 {
-	u8* addr;
-	u32 size;
+    u8* addr;
+    u32 size;
 }UsartReceiveBuffer_t;
 
 void USART2_Init(pfnOnReceiveData pfn,UsartReceiveBuffer_t *pBuff);
