@@ -1,25 +1,11 @@
-#include "stm32f10x_gpio.h"
-#include "misc.h"
-#include "stm32f10x_rcc.h"
-#include "stm32f10x_gpio.h"
 #include "stm32f10x_spi.h"
-
 #include "spiDriver.h"
-
 #include "74HC595.h"
 
 
 #define ICNUMBER 6 //6个芯片串联
 
 u8 m_buffer[ICNUMBER];
-
-typedef struct
-{
-  char* 			pinName;
-	GPIO_TypeDef* 	gpiox;
-	u16				pinx;
-}gpioInfo_t;
-
 
 enum
 {
@@ -82,35 +68,14 @@ void gpio74HC595Init()
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
 
-	for (int i = 0; i < PinMax; i++)
-	{
-		GPIO_InitStructure.GPIO_Pin = m_gpio74HC244[i].pinx;
-		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-		GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-		GPIO_Init(m_gpio74HC244[i].gpiox, &GPIO_InitStructure);
-	}
+	regularOutGpioInit(m_gpio74HC244,PinMax);
 
 	outputDisable();
 	shiftRegClear();
 	outputRegCLKIdle();
 
-	int a = 0;
-
-	int bita;
-	int bitb;
-
 	for (int i = 0;i < ICNUMBER; i++)
 	{
-		bitb = a / 8;
-		bita = a % 8;
-		if (i == bitb)
-		{
-			m_buffer[i] = (1 << bita);
-		}
-		else
-		{
-			m_buffer[i] = 0;
-		}
 		m_buffer[i] = 0;
 	}
 	DELAY();
@@ -124,7 +89,7 @@ void init74HC595(void)
 	spiInit();
 }
 
-int setBuffer(u32 idx, u8 value)
+int setBuffer74HC595(u32 idx, u8 value)
 {
 	if (idx >= 0 && idx < ICNUMBER)
 	{
@@ -137,7 +102,7 @@ int setBuffer(u32 idx, u8 value)
 	return 0;
 }
 
-int set74HC595Bit(u32 idx, u8 offset)
+int setBit74HC595(u32 idx, u8 offset)
 {
 	if (idx >= 0 && idx < ICNUMBER)
 	{
@@ -150,7 +115,7 @@ int set74HC595Bit(u32 idx, u8 offset)
 	return 0;
 }
 
-int clear74HC595Bit(u32 idx, u8 offset)
+int clearBit74HC595(u32 idx, u8 offset)
 {
 	if (idx >= 0 && idx < ICNUMBER)
 	{
@@ -164,7 +129,7 @@ int clear74HC595Bit(u32 idx, u8 offset)
 }
 
 
-void updateReg()
+void writeRegTo74HC595()
 {
 	shiftRegKeep();
 	DELAY();

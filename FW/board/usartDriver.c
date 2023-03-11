@@ -145,7 +145,7 @@ void USART2_IRQHandler(void) // 串口2中断服务函数
 		DMA_Cmd(DMA1_Channel6,DISABLE);
 		DMA_ClearFlag(DMA1_FLAG_TC6);
 		USART2->SR;
-		USART2->DR;//IDLE中断需要先读SR再都DR才能清掉
+		USART2->DR;//IDLE中断需要先读SR再读DR才能清掉
 		//总计数减去未传输的数据个数，得到已经接收的数据个数
 		u32 size = m_USART2DMABuffer.size - DMA_GetCurrDataCounter(DMA1_Channel6);
 		u8* data = m_USART2DMABuffer.buffer[m_USART2DMABuffer.currIdx];

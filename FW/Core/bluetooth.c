@@ -72,7 +72,7 @@ void GPIOInitBlueTooth(void)
 
 s16 blutoothWrite(char* data,u16 num)
 {
-	return USART_BLUETOOTH((u8*)data,num);
+	return USART_BLUETOOTH((char*)data,num);
 }
 
 

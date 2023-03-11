@@ -418,46 +418,6 @@
               <FilePath>..\Core\bluetooth.h</FilePath>
             </File>
             <File>
-              <FileName>usartDriver.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\usartDriver.c</FilePath>
-            </File>
-            <File>
-              <FileName>usartDriver.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Core\usartDriver.h</FilePath>
-            </File>
-            <File>
-              <FileName>ds3231.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\ds3231.c</FilePath>
-            </File>
-            <File>
-              <FileName>ds3231Port.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\ds3231Port.c</FilePath>
-            </File>
-            <File>
-              <FileName>ds3231.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Core\ds3231.h</FilePath>
-            </File>
-            <File>
-              <FileName>ds3231Port.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Core\ds3231Port.h</FilePath>
-            </File>
-            <File>
-              <FileName>i2cDriver.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\i2cDriver.c</FilePath>
-            </File>
-            <File>
-              <FileName>i2cDriver.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Core\i2cDriver.h</FilePath>
-            </File>
-            <File>
               <FileName>realtimeCtrl.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Core\realtimeCtrl.c</FilePath>
@@ -491,6 +451,66 @@
               <FileName>spiDriver.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\board\spiDriver.h</FilePath>
+            </File>
+            <File>
+              <FileName>gpioDriver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\board\gpioDriver.c</FilePath>
+            </File>
+            <File>
+              <FileName>gpioDriver.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\board\gpioDriver.h</FilePath>
+            </File>
+            <File>
+              <FileName>i2cDriver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\board\i2cDriver.c</FilePath>
+            </File>
+            <File>
+              <FileName>i2cDriver.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\board\i2cDriver.h</FilePath>
+            </File>
+            <File>
+              <FileName>usartDriver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\board\usartDriver.c</FilePath>
+            </File>
+            <File>
+              <FileName>usartDriver.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\board\usartDriver.h</FilePath>
+            </File>
+            <File>
+              <FileName>ds3231.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\board\ds3231.c</FilePath>
+            </File>
+            <File>
+              <FileName>ds3231.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\board\ds3231.h</FilePath>
+            </File>
+            <File>
+              <FileName>ds3231Port.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\board\ds3231Port.c</FilePath>
+            </File>
+            <File>
+              <FileName>ds3231Port.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\board\ds3231Port.h</FilePath>
+            </File>
+            <File>
+              <FileName>tubeDriver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\board\tubeDriver.c</FilePath>
+            </File>
+            <File>
+              <FileName>tubeDriver.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\board\tubeDriver.h</FilePath>
             </File>
           </Files>
         </Group>
