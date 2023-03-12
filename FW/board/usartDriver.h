@@ -14,7 +14,7 @@ typedef struct
 }UsartReceiveBuffer_t;
 
 void USART2_Init(pfnOnReceiveData pfn,UsartReceiveBuffer_t *pBuff);
-int16_t USART2_Write(u8 *ch, uint16_t num);
+int16_t USART2_Write(char *ch, uint16_t num);
 
 void USART1_Init(pfnOnReceiveData pfn,UsartReceiveBuffer_t *pBuff);
 s16 USART1_Write(char *ch, u16 num);

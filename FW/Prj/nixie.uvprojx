@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_MD,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>../System/;../CMSIS/Core;../CMSIS/Driver;../Lib/STM32F1xx_DFP/2.3.0/RTE_Driver/Config;../Lib/STM32F1xx_DFP/2.3.0/RTE_Driver;../Lib\STM32F1xx_DFP/2.3.0/Device/StdPeriph_Driver/inc;../Core/letter-shell;../FreeRTOS/include;../FreeRTOS/port/ARM_CM3;../board</IncludePath>
+              <IncludePath>../System/;../CMSIS/Core;../CMSIS/Driver;../Lib/STM32F1xx_DFP/2.3.0/RTE_Driver/Config;../Lib/STM32F1xx_DFP/2.3.0/RTE_Driver;../Lib\STM32F1xx_DFP/2.3.0/Device/StdPeriph_Driver/inc;../Core/letter-shell;../FreeRTOS/include;../FreeRTOS/port/ARM_CM3;../board;../Core</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -406,16 +406,6 @@
               <FileName>shellPort.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\Core\shellPort.h</FilePath>
-            </File>
-            <File>
-              <FileName>bluetooth.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\bluetooth.c</FilePath>
-            </File>
-            <File>
-              <FileName>bluetooth.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Core\bluetooth.h</FilePath>
             </File>
             <File>
               <FileName>realtimeCtrl.c</FileName>
@@ -511,6 +501,26 @@
               <FileName>tubeDriver.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\board\tubeDriver.h</FilePath>
+            </File>
+            <File>
+              <FileName>JDY08.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\board\JDY08.c</FilePath>
+            </File>
+            <File>
+              <FileName>JDY08.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\board\JDY08.h</FilePath>
+            </File>
+            <File>
+              <FileName>generalUsartDriver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\board\generalUsartDriver.c</FilePath>
+            </File>
+            <File>
+              <FileName>generalUsartDriver.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\board\generalUsartDriver.h</FilePath>
             </File>
           </Files>
         </Group>

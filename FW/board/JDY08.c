@@ -1,4 +1,4 @@
-#include "bluetooth.h"
+#include "JDY08.h"
 #include "usartDriver.h"
 #include "shellPort.h"
 #include "stm32f10x_gpio.h"
@@ -49,6 +49,31 @@ static QueueHandle_t xQueueReceiveData = NULL;
 
 static u8    m_isATCmdWaiting;
 
+void OnUSART1ReceiveData(u8* data,u32 num,u8 isFromISR)
+{
+    BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+    UsartReceiveBuffer_t buffer;
+    buffer.addr = data;
+    buffer.size = num;
+
+    if (isFromISR)
+    {
+        if (m_isATCmdWaiting)
+        {
+            xQueueSendFromISR(xQueueReceiveData,
+                              &buffer,
+                              &xHigherPriorityTaskWoken);
+
+            portYIELD_FROM_ISR (xHigherPriorityTaskWoken);
+        }
+        else
+        {
+            g_shell.write = USART1_Write;
+            OnShellReceiveData(data,num,isFromISR);
+        }
+
+    }
+}
 
 void GPIOInitBlueTooth(void)
 {
@@ -70,38 +95,17 @@ void GPIOInitBlueTooth(void)
     GPIO_Init(m_btGpiox[PWRC], &GPIO_InitStructure);
 }
 
-s16 blutoothWrite(char* data,u16 num)
+void JDY08_Init()
 {
-    return USART_BLUETOOTH((char*)data,num);
-}
+    xQueueReceiveData = xQueueCreate(1, sizeof(UsartReceiveBuffer_t));
 
-
-void OnUSART1ReceiveData(u8* data,u32 num,u8 isFromISR)
-{
-    BaseType_t xHigherPriorityTaskWoken = pdFALSE;
     UsartReceiveBuffer_t buffer;
-    buffer.addr = data;
-    buffer.size = num;
+    buffer.addr = m_receiveBuffer;
+    buffer.size = RECEIVE_BUFFER_SIZE;
+    USART1_Init(OnUSART1ReceiveData,&buffer);
 
-    if (isFromISR)
-    {
-        if (m_isATCmdWaiting)
-        {
-            xQueueSendFromISR(xQueueReceiveData,
-                              &buffer,
-                              &xHigherPriorityTaskWoken);
-
-            portYIELD_FROM_ISR (xHigherPriorityTaskWoken);
-        }
-        else
-        {
-            g_shell.write = blutoothWrite;
-            OnShellReceiveData(data,num,isFromISR);
-        }
-
-    }
+    GPIOInitBlueTooth();
 }
-
 
 int ATCommand(int argc, char *agrv[])
 {
@@ -116,7 +120,7 @@ int ATCommand(int argc, char *agrv[])
         command = (char*)agrv[1];
         length = strlen(command);
         m_isATCmdWaiting = 1;
-        USART_BLUETOOTH(command,length);
+        JDY08WRITE(command,length);
 
         result = xQueueReceive(xQueueReceiveData,
                     &buffer,
@@ -206,17 +210,5 @@ int BTCommand(int argc, char *agrv[])
 }
 SHELL_EXPORT_CMD(SHELL_CMD_PERMISSION(0)|SHELL_CMD_TYPE(SHELL_TYPE_CMD_MAIN)|SHELL_CMD_DISABLE_RETURN, BT, BTCommand,BT <STAT|PWRC> [0|1]);
 
-
-void JDY08_Init()
-{
-    xQueueReceiveData = xQueueCreate(1, sizeof(UsartReceiveBuffer_t));
-
-    UsartReceiveBuffer_t buffer;
-    buffer.addr = m_receiveBuffer;
-    buffer.size = RECEIVE_BUFFER_SIZE;
-    USART1_Init(OnUSART1ReceiveData,&buffer);
-
-    GPIOInitBlueTooth();
-}
 
 

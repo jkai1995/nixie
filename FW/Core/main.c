@@ -1,7 +1,6 @@
 #include "stm32f10x.h"
 #include "powerCtrl.h"
 #include "shellPort.h"
-#include "bluetooth.h"
 #include "misc.h"
 #include "FreeRTOS.h"
 #include "task.h"
@@ -9,11 +8,7 @@
 
 void createTasks(void *pvParameters )
 {
-
     powerCtrlInit();
-    //UserShellInit();
-    JDY08_Init();
-    
     createShellTask();
     createRealtimeTask();
     vTaskSuspend(NULL);

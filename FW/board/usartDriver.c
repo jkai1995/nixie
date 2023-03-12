@@ -20,7 +20,7 @@ typedef struct
 
 
 #define USART1BaudRate 115200
-#define USART2BaudRate 9600
+#define USART2BaudRate 115200
 
 static DMABuffer_t        m_USART1DMABuffer;
 static DMABuffer_t        m_USART2DMABuffer;
@@ -187,7 +187,7 @@ void USART2_WriteDMA(uint8_t *Data, uint32_t len)
 
 }
 
-s16 USART2_Write(u8 *ch, u16 num)
+s16 USART2_Write(char *ch, u16 num)
 {
 
     for (int i = 0; i < num; i++)

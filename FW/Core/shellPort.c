@@ -2,8 +2,10 @@
 #include "stm32f10x_usart.h"
 #include "misc.h"
 #include "stm32f10x_rcc.h"
-#include "usartDriver.h"
 #include "shellPort.h"
+
+#include "JDY08.h"
+#include "generalUsartDriver.h"
 
 #include "FreeRTOS.h"
 #include "task.h"
@@ -16,10 +18,6 @@ Shell g_shell;
 //letter-shell预留buffer用于存储输入的命令和命令记录
 char shell_buffer[SHELLBUFFERSIZE];
 
-#define RECEIVE_BUFFER_SIZE 64
-//usart 预留buffer，用于DMA接收数据
-static u8    m_receiveBuffer[RECEIVE_BUFFER_SIZE];
-//usart将接收的数据存储在m_receiveBuffer[]中的某一段
 //m_receivedData表明起始地址和大小
 static UsartReceiveBuffer_t m_receivedData;
 
@@ -34,19 +32,10 @@ const char *shellTextCustom[] =
 
 };
 
-
-
 TaskHandle_t m_shellHandle;
 #define ShellTaskPriority 4
 
 static QueueHandle_t xQueueReceiveData = NULL;
-
-u32 *pSizeofQueue = NULL;
-
-s16 shellWrite(char* data,u16 num)
-{
-    return USART2_Write((u8*)data,num);
-}
 
 u32 height = 0;
 s16 shellRead(char *data, u16 num)
@@ -69,13 +58,6 @@ s16 shellRead(char *data, u16 num)
     return 1;
 }
 
-void On_USART2ReceiveData(u8*data,u32 num,u8 isFromISR)
-{
-    g_shell.write = shellWrite;
-    OnShellReceiveData(data,num,isFromISR);
-}
-
-
 void OnShellReceiveData(u8*data,u32 num,u8 isFromISR)
 {
     if (isFromISR)
@@ -93,34 +75,24 @@ void OnShellReceiveData(u8*data,u32 num,u8 isFromISR)
     }
 }
 
-
 void UserShellInit(void)
 {
     m_receivedData.addr = NULL;
     m_receivedData.size = 0;
 
-    UsartReceiveBuffer_t buffer;
-    buffer.addr = m_receiveBuffer;
-    buffer.size = RECEIVE_BUFFER_SIZE;
-    USART2_Init(On_USART2ReceiveData,&buffer);
-
-
-    g_shell.write = shellWrite;
+    g_shell.write = USART2_Write;
     g_shell.read = shellRead;
 
     //调用shell初始化函数
     shellInit(&g_shell, shell_buffer, SHELLBUFFERSIZE);
-    
-    
 }
-
-
 
 void createShellTask (void)
 {
 
     xQueueReceiveData = xQueueCreate(1, sizeof(UsartReceiveBuffer_t));
-
+    JDY08_Init();
+    generalUSARTInit();
     UserShellInit();
 
     xTaskCreate(shellTask,
