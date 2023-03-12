@@ -18,6 +18,13 @@ FreeRTOS
 
 letter-shell调试和控制，非常方便 https://github.com/NevermindZZT/letter-shell
 
+### 软件结构
+![image](https://user-images.githubusercontent.com/38028595/224524958-94d6a370-3274-497a-a83e-287177f59f09.png)
+
+realtimeCtrl线程读写时钟芯片ds3231的数据，并通过6片串联的串入并出移位寄存器74HC595驱动辉光管
+
+shell线程通过JDY08蓝牙模块或者直连的串口交互，支持多种命令
+
 ## 上位机
 
 ## 调试问题
